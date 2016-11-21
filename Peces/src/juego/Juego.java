@@ -8,7 +8,10 @@ import pantalla.Pantalla;
 public class Juego extends Thread {	
 	private Pantalla pantalla;
 	private List<Pez> peces;
-	private String[] nombres = {"Vitor", "Christian", "Sergio", "Gallego", "Jesus", "Borja", "Sire", "Ander", "Torre", "Peio", "Vaquero", "Josu", "Aingeru", "Ameyugo", "Alain", "Alex", "Paces", "Ioseba", "Lara", "Nico", "Iñigo", "Vanessa", "Txemator", "Esmeralda", "Lander"};
+	private String[] nombres = {"Vitor", "Sergio", "Gallego", "Jesus", "Borja", "Sire", "Ander", 
+			"Torre", "Peio", "Vaquero", "Josu", "Aingeru", "Ameyugo", "Alain", "Alex", "Paces", 
+			"Ioseba", "Christian", "Lara", "Nico", "Iñigo", "Vanessa", "Txemator", "Esmeralda", 
+			"Lander", "Charo", "Cositas", "Luca", "Joseba"};
 	
 	public Juego() {
 		peces = new ArrayList<Pez>();
