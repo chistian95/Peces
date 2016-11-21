@@ -94,7 +94,11 @@ public class Pez extends Thread implements Pintable {
 		Rectangle recTarget = target.obtenerHitbox();
 		if(recThis.intersects(recTarget)) {
 			atacar(target);
-			target.atacar(this);
+			
+			double random = Math.random()*100;
+			if(random < 50) {
+				target.atacar(this);
+			}
 		}
 	}
 	
