@@ -5,7 +5,7 @@ import java.awt.Color;
 public enum EstadoPez {
 	NADANDO(Color.WHITE),
 	ESCAPANDO(Color.RED),
-	CAZANDO(Color.MAGENTA),
+	CAZANDO(Color.GREEN),
 	MUERTO(Color.BLACK);
 	
 	private Color color;

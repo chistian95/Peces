@@ -18,6 +18,7 @@ public class Pez extends Thread implements Pintable {
 	private int altoPez;
 	
 	private int puntos;
+	private String nombre;
 	private int alfa;
 	private double vida;
 	private double velocidad;
@@ -28,11 +29,16 @@ public class Pez extends Thread implements Pintable {
 	private Pez target;
 	
 	public Pez(Juego juego) {
-		this(juego, 1);
+		this(juego, 1, null);
 	}
 	
-	public Pez(Juego juego, int puntos) {
+	public Pez(Juego juego, String nombre) {
+		this(juego, 1, nombre);
+	}
+	
+	public Pez(Juego juego, int puntos, String nombre) {
 		this.juego = juego;
+		this.nombre = nombre;
 		
 		estado = EstadoPez.NADANDO;
 		anchoPez = 10;
@@ -49,6 +55,8 @@ public class Pez extends Thread implements Pintable {
 		
 		juego.getPeces().add(this);
 	}
+	
+	
 	
 	private void moverPez() {
 		curar();
@@ -96,7 +104,7 @@ public class Pez extends Thread implements Pintable {
 			atacar(target);
 			
 			double random = Math.random()*100;
-			if(random < 50) {
+			if(random < 33) {
 				target.atacar(this);
 			}
 		}
@@ -151,17 +159,25 @@ public class Pez extends Thread implements Pintable {
 			g.setStroke(new BasicStroke(1));
 			g.drawRect((int) rec.getX(), (int) rec.getY(), (int) rec.getWidth(), (int) rec.getHeight());
 			
-			int barraX = (int) rec.getX();
-			int barraY = (int) (rec.getY() - rec.getHeight() * 0.2);
-			int anchoBarra = (int) (rec.getWidth() * (vida / 100));
-			int altoBarra = (int) (rec.getHeight() * 0.1);
+			if(nombre == null) {
+				int barraX = (int) rec.getX();
+				int barraY = (int) (rec.getY() - rec.getHeight() * 0.2);
+				int anchoBarra = (int) (rec.getWidth() * (vida / 100));
+				int altoBarra = (int) (rec.getHeight() * 0.1);
+				
+				g.setColor(Color.GREEN);
+				g.fillRect(barraX, barraY, anchoBarra, altoBarra);
+			}
 			
-			g.setColor(Color.GREEN);
-			g.fillRect(barraX, barraY, anchoBarra, altoBarra);
 			
 			g.setColor(estado.getColor());
 			g.drawLine((int) posicion.getX(), (int) posicion.getY(), (int) destino.getX(), (int) destino.getY());
-		}		
+		}	
+		
+		if(nombre != null) {
+			g.setColor(Color.WHITE);
+			g.drawString(nombre, (int) rec.getX(), (int) (rec.getY() - rec.getHeight() * 0.2));
+		}
 	}
 	
 	private void atacar(Pez pez) {
@@ -189,7 +205,7 @@ public class Pez extends Thread implements Pintable {
 	
 	private void curar() {
 		double random = Math.random() * 100;
-		if(random < 1 && vida < 100) {
+		if(random < 0.1 && vida < 100) {
 			vida++;
 		}
 	}
@@ -203,15 +219,15 @@ public class Pez extends Thread implements Pintable {
 	}
 	
 	private double obtenerAncho() {
-		return anchoPez + (anchoPez * puntos) / 50;
+		return anchoPez + (anchoPez * puntos) / 25;
 	}
 	
 	private double obtenerAlto() {
-		return altoPez + (altoPez * puntos) / 50;
+		return altoPez + (altoPez * puntos) / 25;
 	}
 	
 	private double obtenerScope() {
-		return obtenerAncho() * 20;
+		return obtenerAncho() * 10;
 	}
 	
 	@Override
@@ -226,6 +242,10 @@ public class Pez extends Thread implements Pintable {
 			} catch(InterruptedException e) {
 				
 			}
+		}
+		
+		if(nombre != null) {
+			return;
 		}
 		
 		for(int c = 0; c < 250; c++) {
