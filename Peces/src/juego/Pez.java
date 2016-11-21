@@ -97,6 +97,11 @@ public class Pez extends Thread implements Pintable {
 		if(target == null) {
 			return;
 		}
+		if(target.estado.equals(EstadoPez.MUERTO)) {
+			estado = EstadoPez.NADANDO;
+			target = null;
+			return;
+		}
 		destino = target.posicion;
 		Rectangle recThis = obtenerHitbox();
 		Rectangle recTarget = target.obtenerHitbox();
