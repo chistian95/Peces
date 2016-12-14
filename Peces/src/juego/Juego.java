@@ -16,8 +16,17 @@ public class Juego extends Thread {
 	public Juego() {
 		peces = new ArrayList<Pez>();
 		pantalla = new Pantalla(this);
-		for(int i=0; i<nombres.length; i++) {
-			new Pez(this, nombres[i]);
+		List<String> nombresCogidos = new ArrayList<>();
+		while(nombresCogidos.size() != nombres.length) {
+			while(true) {
+				int rnd = (int) (Math.random()*nombres.length);
+				String nombre = nombres[rnd];
+				if(!nombresCogidos.contains(nombre)) {
+					new Pez(this, nombre);
+					nombresCogidos.add(nombre);
+					break;
+				}
+			}
 		}
 		
 		start();

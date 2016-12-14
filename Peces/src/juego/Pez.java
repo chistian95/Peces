@@ -186,7 +186,7 @@ public class Pez extends Thread implements Pintable {
 	}
 	
 	private void atacar(Pez pez) {
-		if(pez == null || pez.estado.equals(EstadoPez.MUERTO)) {
+		if(pez == null || pez.estado.equals(EstadoPez.MUERTO) || pez.vida <= 0) {
 			return;
 		}
 		
@@ -200,6 +200,7 @@ public class Pez extends Thread implements Pintable {
 		pez.vida = pez.vida < 0 ? 0 : pez.vida;
 		if(pez.vida <= 0) {
 			pez.estado = EstadoPez.MUERTO;
+			System.out.println(this.nombre + " se ha cargado a "+pez.nombre);
 			
 			vida += pez.puntos;
 			vida = vida > 100 ? 100 : vida;
